@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}İzleme Listem - Film ve Dizi İzleme Servisi{% endblock %}
+
+{% block content %}
+<div class="row mb-4" style="color: #fff;">
+    <div class="col" style="color: #fff;">
+        <h1 class="display-4" style="color: #fff;">İzleme Listem</h1>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center" style="color: #fff;">
+    {% for item in watchlist %}
+    <div class="col d-flex align-items-stretch" style="color: #fff;">
+        <div class="card content-card w-100 h-100" style="background: #181818; border-radius: 18px; overflow: hidden; color: #fff;">
+            {% if item.content.image_url %}
+            <img src="{{ url_for('static', filename=item.content.image_url.split('static/')[1]) }}" class="card-img-top" alt="{{ item.content.title }} posteri" style="height: 350px; object-fit: cover; border-radius: 0;">
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title mb-2" style="color: #fff;">{{ item.content.title }}</h5>
+                <div class="movie-details mb-2">
+                    <div class="d-flex align-items-center mb-1">
+                    </div>
+                    {% if item.content.title.lower() == "lucifer" %}
+                        <span class="badge bg-primary">Dizi</span>
+                        <span style="color: #fff; margin-left: 10px;">6 Sezon</span>
+                    {% endif %}
+                    {% if item.content.title.lower() == "the witcher" %}
+    <span class="badge bg-primary">Dizi</span>
+    <span style="color: #fff; margin-left: 10px;">3 Sezon</span>
+                    {% endif %}
+                    {% if item.content.title.lower() == "delibal" %}
+    <span class="badge bg-primary">Film</span>
+    <span style="color: #fff; margin-left: 10px;">1 saat 52 dk</span>
+                    {% endif %}
+                    {% if item.content.title.lower() == "wednesday" %}
+    <span class="badge bg-primary">Dizi</span>
+    <span style="color: #fff; margin-left: 10px;">2 Sezon</span>
+                    {% endif %}
+                    {% if item.content.title.lower() == "avatar" %}
+    <span class="badge bg-primary">Film</span>
+    <span style="color: #fff; margin-left: 10px;">2 saat 58 dk</span>
+                    {% endif %}
+                    {% if item.content.title.lower() == "maleficent" or item.content.title.lower() == "malefiz" %}
+    <span class="badge bg-primary">Film</span>
+    <span style="color: #fff; margin-left: 10px;">1 saat 37 dk</span>
+                    {% endif %}
+                    {% if item.content.title.lower() == "inception" or item.content.title.lower() == "başlangıç" %}
+    <span class="badge bg-primary">Film</span>
+    <span style="color: #fff; margin-left: 10px;">2 saat 58 dk</span>
+                    {% endif %}
+                    {% if item.content.title.lower() == "ezel" %}
+    <span class="badge bg-primary">Dizi</span>
+    <span style="color: #fff; margin-left: 10px;">2 Sezon</span>
+                    {% endif %}
+                    {% if item.content.genre %}
+                    <div class="genre-tags">
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-tag me-1"></i>{{ item.content.genre }}
+                        </span>
+                    </div>
+                    {% endif %}
+                    <div class="mt-2">
+                        <small class="text-muted" style="color: #fff;">
+        <i class="far fa-calendar-alt me-1"></i>{{ item.added_date.strftime('%d/%m/%Y') }}
+    </small>
+                    </div>
+                </div>
+                <p class="card-text" style="color: #aaa;">{{ item.content.description }}</p>
+                <div class="mt-auto">
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="watched{{ item.id }}" 
+                               {% if item.watched %}checked{% endif %} disabled>
+                        <label class="form-check-label" for="watched{{ item.id }}" style="color: #fff;">
+                            İzlendi
+                        </label>
+                    </div>
+                    <a href="#" class="btn btn-outline-danger w-100" style="border-color: #e50914; color: #e50914;">
+                        <i class="fas fa-trash me-1"></i>Listeden Çıkar
+                    </a>
+                </div>
+                {% if item.content.title.lower() == "the witcher" %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, 'https://yabancidizi.tv/dizi/the-witcher-izle-1'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% elif item.content.title.lower() == "ezel" %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, 'https://www.youtube.com/playlist?list=PLsvJ8lYSMnLufc5q0mYY_JsQS7-oplO0r'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% elif item.content.title.lower() == "lucifer" %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, 'https://www.hdfilmizle.to/dizi/lucifer/sezon-1/bolum-1/'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% elif item.content.title.lower() == "delibal" %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, 'https://www.hdfilmcehennemi.nl/delibal-1/'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% elif item.content.title.lower() == "avatar" %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, 'http://hdfilmcehennemi.ltd/film/avatar-2009-izle/'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% elif item.content.title.lower() == "maleficent" or item.content.title.lower() == "malefiz" %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, 'https://www.hdfilmcehennemi.nl/1-malefiz-izle-hdf-6/'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% elif item.content.title.lower() == "inception" or item.content.title.lower() == "başlangıç" %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, 'https://www.hdfilmcehennemi.nl/baslangic-hd-film-izle-8/'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% elif item.content.title.lower() == "wednesday" %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, 'https://www.hdfilmcehennemi.nl/dizi/wednesday-44/'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% endif %}
+                {% if item.content.watch_url %}
+                <a href="#" class="btn btn-success mt-2"
+                   onclick="markWatchedAndRedirect({{ item.id }}, '{{ item.content.watch_url }}'); return false;">
+                   <i class="fas fa-play me-1"></i>İzle
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12" style="color: #fff;">
+        <div class="alert alert-info text-center" style="color: #fff;">
+            <i class="fas fa-info-circle me-2"></i>
+            İzleme listenizde henüz içerik bulunmuyor. Ana sayfadan içerik ekleyebilirsiniz.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+function markWatchedAndRedirect(watchlistId, izleUrl) {
+    fetch('/mark_watched/' + watchlistId, {method: 'POST'})
+        .then(() => window.open(izleUrl, '_blank'))
+        .then(() => location.reload());
+}
+</script>
+{% endblock %}

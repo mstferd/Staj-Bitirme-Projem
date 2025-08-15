@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Giriş - Film ve Dizi İzleme Servisi{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card" style="background-color: rgba(0, 0, 0, 0.75); border: none; border-radius: 4px; padding: 40px 60px;">
+            <div class="card-body p-0">
+                <h2 class="card-title text-white mb-4" style="font-size: 32px; font-weight: 600;">Giriş Yap</h2>
+                <form method="POST">
+                    <div class="mb-4">
+                        <input type="text" class="form-control bg-dark text-white border-0 p-3" id="username" name="username" required 
+                               style="background-color: #333 !important; color: #fff; border-radius: 4px; font-size: 16px;"
+                               placeholder="Kullanıcı Adı">
+                    </div>
+                    <div class="mb-4">
+                        <input type="password" class="form-control bg-dark text-white border-0 p-3" id="password" name="password" required
+                               style="background-color: #333 !important; color: #fff; border-radius: 4px; font-size: 16px;"
+                               placeholder="Şifre">
+                    </div>
+                                        <div class="mb-3 form-check" style="padding-left: 0;">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="remember" name="remember" style="width: 20px; height: 20px; margin-left: 0; margin-top: 0.2rem;">
+                            <label class="form-check-label ms-2" for="remember" style="color: #b3b3b3; font-size: 0.9rem;">Beni Hatırla</label>
+                        </div>
+                    </div>
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-danger py-3" style="font-size: 16px; font-weight: 600; background-color: #e50914; border: none;">
+                            Giriş Yap
+                        </button>
+                    </div>
+                </form>
+                <div class="text-center mt-4">
+                    <p class="mb-1" style="color: #737373;">Hesabınız yok mu? <a href="{{ url_for('register') }}" style="color: #fff; text-decoration: none;">Şimdi kaydolun</a></p>
+                    <p class="small mt-3" style="color: #8c8c8c;">Bu sayfa robot olmadığınızı kanıtlamak için Google reCAPTCHA tarafından korunuyor. <a href="#" style="color: #0071eb; text-decoration: none;">Daha fazla bilgi.</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

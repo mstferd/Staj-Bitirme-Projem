@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Ana Sayfa - Film ve Dizi İzleme Servisi{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="display-4">Film ve Diziler</h1>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+    {% for content in contents %}
+    <div class="col d-flex align-items-stretch">
+        <div class="card content-card w-100 h-100" style="background: #181818; border-radius: 18px; overflow: hidden;">
+            {% if content.image_url %}
+            <img src="{{ url_for('static', filename=content.image_url.split('static/')[1]) }}" class="card-img-top" alt="{{ content.title }} posteri" style="height: 350px; object-fit: cover; border-radius: 0;">
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title mb-2" style="color: #fff;">{{ content.title }}</h5>
+                <div class="movie-details mb-2">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="badge bg-primary me-2">
+                            {% if content.type|lower == 'movie' %}
+                                Film
+                            {% else %}
+                                Dizi
+                            {% endif %}
+                        </span>
+                        {% if content.duration %}
+                        <span class="text-white-50 me-2">
+                            <i class="far fa-clock me-1"></i>{{ content.duration }} dk
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if content.genre %}
+                    <div class="genre-tags">
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-tag me-1"></i>{{ content.genre }}
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+                <p class="card-text" style="color: #aaa;">{{ content.description }}</p>
+                <div class="mt-auto">
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('add_to_watchlist', content_id=content.id) }}" class="btn btn-danger w-100" style="background: #e50914; border: none;">
+                    <i class="fas fa-plus me-1"></i>İzleme Listesine Ekle
+                </a>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 
