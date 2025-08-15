@@ -209,6 +209,5 @@ Ortam değişkenleri .env dosyası ile düzenlendi.
 
 Gün 30:
 
-Proje sunumu yapıldı.
 
 Staj raporu hazırlandı ve teslim edildi.
